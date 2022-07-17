@@ -36,36 +36,31 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          <a href="https://nextjs.org">Podcaster!</a>
+          <a href="/">Podcaster!</a>
         </h1>
         <div>
           <h1></h1>
         </div>
-        <p className={styles.description}>
-          Powered by{" "}
-          <code className={styles.code}>
-            <a target="blank" href="https://tohidsh.com">
-              Tohid Shabanloo
-            </a>
-          </code>
-        </p>
+
         <div className={styles.inputsContainer}>
           Add Title
           <input
             value={postTitle}
-            className={styles.inputsContainer}
+            className={styles.input}
             onChange={handleChange}
           />
           <br />
           <br />
           Add Description
           <input
-            className={styles.inputsContainer}
+            className={styles.input}
             onChange={handleChangeDesc}
             value={postDesc}
           />
           <br />
-          <button onClick={postAdd}>Click Here</button>
+          <button className={styles.button} onClick={postAdd}>
+            ADD
+          </button>
         </div>
         <div className={styles.posts}>
           {postList.map((item, i) => (
@@ -82,16 +77,14 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <p>
           Powered by{" "}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
+          <code className={styles.code}>
+            <a target="blank" href="https://tohidsh.com">
+              Tohid Shabanloo
+            </a>
+          </code>
+        </p>
       </footer>
     </div>
   );
