@@ -28,16 +28,13 @@
   color: white;
   padding: 20px;
   background-color: #0070f3;
-  width: 50%;
+  width: 80%;
   align-items: center;
   justify-content: center;
   display: flex;
   flex-direction: column;
   border: 1px solid #b7b6b6;
   border-radius: 10px;
-}
-.input {
-  width: 20px;
 }
 
 .footer {

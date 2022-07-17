@@ -4,20 +4,26 @@ import { useState } from "react";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  var posts = [
-    // { id: 1, title: "episode1", desc: "descriptidon1" },
-    // { id: 2, title: "episode2", desc: "description2" },
-    // { id: 3, title: "episode3", desc: "description3" },
-    // { id: 4, title: "episode4", desc: "description4" },
-  ];
+  const [postList, setPostList] = useState([
+    { id: 1, title: "This is a title", desc: "This is a descriptidon" },
+  ]);
+  const [postTitle, setPosttitle] = useState("");
+  const [postDesc, setPostDesc] = useState("");
 
-  const [postTitle, setPosttitle] = useState();
-  const [postDesc, setPostDesc] = useState();
   const handleChange = (event) => setPosttitle(event.target.value);
   const handleChangeDesc = (event) => setPostDesc(event.target.value);
-  // const newPost = [{ id: 5, title: "episode5", desc: "description5" }];
 
-  posts.push({ title: postTitle, desc: postDesc });
+  const postAdd = () => {
+    if (postTitle.length && postDesc.length) {
+      const newPost = { title: postTitle, desc: postDesc };
+      const updatedPost = [...postList, newPost];
+      setPostList(updatedPost);
+      setPosttitle("");
+      setPostDesc("");
+    } else {
+      alert("All inputs must be filled");
+    }
+  };
 
   console.log(postTitle, postDesc);
   return (
@@ -45,31 +51,30 @@ export default function Home() {
         </p>
         <div className={styles.inputsContainer}>
           Add Title
-          <input className={styles.inputsContainer} onChange={handleChange} />
+          <input
+            value={postTitle}
+            className={styles.inputsContainer}
+            onChange={handleChange}
+          />
           <br />
           <br />
           Add Description
           <input
             className={styles.inputsContainer}
             onChange={handleChangeDesc}
+            value={postDesc}
           />
+          <br />
+          <button onClick={postAdd}>Click Here</button>
         </div>
         <div className={styles.posts}>
-          {posts.map((item, i) => (
+          {postList.map((item, i) => (
             <span className={styles.grid} key={item.id}>
               <a href="https://nextjs.org/docs" className={styles.card}>
                 <h2>
                   {i + 1}.{item.title} &rarr;
                 </h2>
                 <h4 className={styles.desc}>{item.desc}</h4>
-                {/* <div className={styles.image}>
-                  <Image
-                    src="/pod.png"
-                    alt="Picture of the author"
-                    width={1920}
-                    height={1080}
-                  />
-                </div> */}
               </a>
             </span>
           ))}
