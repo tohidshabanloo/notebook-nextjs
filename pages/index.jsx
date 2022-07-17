@@ -4,18 +4,29 @@ import { useState } from "react";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  const [postList, setPostList] = useState([
-    { id: 1, title: "This is a title", desc: "This is a descriptidon" },
-  ]);
+  const [addtoDb, setAddToDb] = useState([]);
+  const [postList, setPostList] = useState([]);
   const [postTitle, setPosttitle] = useState("");
   const [postDesc, setPostDesc] = useState("");
 
+  const dbHandler = () => {
+    if (postTitle.length && postDesc.length) {
+      setAddToDb({ title: postTitle, desc: postDesc });
+    }
+
+    let userData = {
+      firstname: firstname.value,
+      lastname: lastname.value,
+      password: password.value,
+    };
+  };
   const handleChange = (event) => setPosttitle(event.target.value);
   const handleChangeDesc = (event) => setPostDesc(event.target.value);
 
   const postAdd = () => {
     if (postTitle.length && postDesc.length) {
-      const newPost = { title: postTitle, desc: postDesc };
+      var newPost = { title: postTitle, desc: postDesc };
+      setAddToDb({ title: postTitle, desc: postDesc });
       const updatedPost = [...postList, newPost];
       setPostList(updatedPost);
       setPosttitle("");
@@ -24,6 +35,18 @@ export default function Home() {
       alert("All inputs must be filled");
     }
   };
+  fetch("https://podcaster00-default-rtdb.firebaseio.com/posts.json", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(addtoDb),
+  })
+    .then((res) => {
+      console.log(res);
+      clearData();
+    })
+    .catch((err) => console.log(err));
 
   console.log(postTitle, postDesc);
   return (
@@ -53,13 +76,17 @@ export default function Home() {
           <br />
           Add Description
           <input
+            value={postDesc}
             className={styles.input}
             onChange={handleChangeDesc}
-            value={postDesc}
           />
           <br />
           <button className={styles.button} onClick={postAdd}>
-            ADD
+            ADD TO LIST
+          </button>
+          <br />
+          <button className={styles.button} onClick={dbHandler}>
+            ADD TO DB
           </button>
         </div>
         <div className={styles.posts}>
