@@ -1,15 +1,25 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useState } from "react";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
   var posts = [
-    { id: 1, title: "episode1", desc: "descriptidon1" },
-    { id: 2, title: "episode2", desc: "description2" },
-    { id: 3, title: "episode3", desc: "description3" },
-    { id: 3, title: "episode4", desc: "description4" },
+    // { id: 1, title: "episode1", desc: "descriptidon1" },
+    // { id: 2, title: "episode2", desc: "description2" },
+    // { id: 3, title: "episode3", desc: "description3" },
+    // { id: 4, title: "episode4", desc: "description4" },
   ];
 
+  const [postTitle, setPosttitle] = useState();
+  const [postDesc, setPostDesc] = useState();
+  const handleChange = (event) => setPosttitle(event.target.value);
+  const handleChangeDesc = (event) => setPostDesc(event.target.value);
+  // const newPost = [{ id: 5, title: "episode5", desc: "description5" }];
+
+  posts.push({ title: postTitle, desc: postDesc });
+
+  console.log(postTitle, postDesc);
   return (
     <div className={styles.container}>
       <Head>
@@ -22,7 +32,9 @@ export default function Home() {
         <h1 className={styles.title}>
           <a href="https://nextjs.org">Podcaster!</a>
         </h1>
-
+        <div>
+          <h1></h1>
+        </div>
         <p className={styles.description}>
           Powered by{" "}
           <code className={styles.code}>
@@ -31,7 +43,17 @@ export default function Home() {
             </a>
           </code>
         </p>
-
+        <div className={styles.inputsContainer}>
+          Add Title
+          <input className={styles.inputsContainer} onChange={handleChange} />
+          <br />
+          <br />
+          Add Description
+          <input
+            className={styles.inputsContainer}
+            onChange={handleChangeDesc}
+          />
+        </div>
         <div className={styles.posts}>
           {posts.map((item, i) => (
             <span className={styles.grid} key={item.id}>
